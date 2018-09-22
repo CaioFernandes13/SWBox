@@ -1,0 +1,33 @@
+page-about {
+    ion-content{
+        font-family: 'Josefin Sans', sans-serif;
+    }
+
+    ion-content div.swb-info-content p{
+        text-align: justify;
+        font-size: 1.3em;
+    }
+
+    ion-content div.swb-info-content h1{
+        text-align: center;
+    }
+
+    ion-content div.dev-info-content h4{
+        text-align: center;
+    }
+
+    ion-content div.dev-info-content ion-list-header{
+        font-size: 1.5em;
+        border-width: 2px;
+        color: rgb(29, 104, 180);
+    }
+
+    ion-content div.footer-content{
+        text-align: center;
+        font-size: 1em;
+    }
+    ion-content div.footer-content img{
+        border-radius: 50%;
+        max-width: 10%; 
+    }
+}

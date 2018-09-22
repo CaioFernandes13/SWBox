@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle icon-only>
+      <ion-icon name='menu'></ion-icon>
+    </button>
+    <ion-title>
+      Sobre
+    </ion-title>
+  </ion-navbar>
+  
+</ion-header>
+      
+<ion-content padding>
+  <div class="swb-info-content">
+    <h1>Smart Water Box</h1>
+    <p>
+      Smart Water Box é um projeto em desenvolvimento e é voltado para a área de sistemas embarcados.
+    </p>
+    <p>
+        A principal motivação da realização do projeto é a dificuldade de mensurar a quantidade 
+        de água restante na caixa d'agua comum, e em momentos que estão ocorrendo muitos racionamentos de água,
+        isso pode ser um problema.
+    </p>
+    <p>  
+      O principal objetivo do projeto é coletar o volume restante de água na caixa e fornecer informações ao usuário, 
+      além do projeto ser usado para provar conceitos aprendidos na disciplina CCF351 (Sistemas Embarcados) 
+      de Ciência da Computação - UFV-Florestal
+    </p>
+  </div>
+  <div class="dev-info-content">
+    <h4>Idealizadores</h4>
+    <ion-list>
+      <ion-list-header>
+        Caio Victor Fernandes Silva
+      </ion-list-header>
+      <button ion-item *ngFor="let item of itemsCaio" (click)="itemSelected(item)">
+        <ion-icon name="{{item.logo}}" item-start></ion-icon>
+          {{item.title}}
+      </button>
+    </ion-list>
+    <ion-list>
+      <ion-list-header>
+        Samuel Silva Costa Nascimento
+      </ion-list-header>
+      <button ion-item *ngFor="let item of itemsSamuel" (click)="itemSelected(item)">
+        <ion-icon name="{{item.logo}}" item-start></ion-icon>
+          {{item.title}}
+      </button>
+    </ion-list>
+  </div>
+
+  <div class="footer-content">
+    <img src="../../assets/imgs/icon.jpg" alt="Icon">
+    <p>UFV-Florestal - 2018</p>
+  </div>
+</ion-content>
+      

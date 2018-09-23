@@ -11,11 +11,17 @@
 </ion-header>
       
 <ion-content padding>
-  <p center middle>
-    <button ion-button round large outline icon-start (click)="startMonitor()">
-      <ion-icon name="checkmark-circle-outline"></ion-icon>
-        Start
-    </button>
-  </p>
+  <ion-list>
+    <ion-item>
+      <ion-label>Formato da caixa</ion-label>
+      <ion-select [(ngModel)]="formato-caixa">
+        <ion-option *ngFor = "let bo of boxOptions" value="{{bo.value}}" >
+          {{bo.description}}
+          <img src="{{bo.img}}" alt="{{bo.alt}}">
+        </ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  
 </ion-content>
       

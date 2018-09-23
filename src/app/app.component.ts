@@ -2,34 +2,34 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { HeaderColor } from '@ionic-native/header-color';
+import { Serial } from '@ionic-native/serial';
 
 import { HomePage } from '../pages/home/home';
 import { AboutPage } from '../pages/about/about';
 import { ConfigPage } from '../pages/config/config';
-import { ListPage } from '../pages/list/list';
 
 @Component({
+  selector: 'page-app',
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage;
+  //rootPage: any = HomePage;
   //rootPage: any = AboutPage;
-  //rootPage: any = ConfigPage;
+  rootPage: any = ConfigPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, icon: string, component: any}>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(private headerColor: HeaderColor, private serial: Serial, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Monitoramento', component: HomePage },
-      { title: 'Sobre', component: AboutPage },
-      { title: 'Configurações', component: ConfigPage },
-      { title: 'List', component: ListPage }
-      
+      { title: 'Monitoramento', icon:"pulse", component: HomePage },
+      { title: 'Sobre', icon:"information-circle", component: AboutPage },
+      { title: 'Configurações', icon:"build", component: ConfigPage }      
     ];
 
   }
@@ -40,6 +40,7 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.headerColor.tint("#0971c0");
     });
   }
 

@@ -1,3 +1,36 @@
 page-home {
 
+    .bg{
+        //background: #0971c0;
+        //background: linear-gradient(to top, #0971c0 0%, #fff 100%);
+    }
+    ion-content div.img{
+        width: 100%;
+        text-align: center;
+        float: left;
+        margin-top: 30%;
+    }
+
+    ion-content div.img img{
+        max-width: 400px;
+        width: 100%;
+        height: 200px;;
+    }
+    
+
+    ion-content div.start-button{
+        width: 80%;
+        float: left;
+        margin-top: 30%;
+        margin-left: 9.5%;
+    }
+    ion-content div.start-button button{
+        background-color: #fff;
+    }
+
+    ion-content footer.footer{
+        clear: both;
+        width: 99%;
+        text-align: center;
+    }
 }

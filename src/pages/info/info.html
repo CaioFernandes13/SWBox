@@ -7,11 +7,22 @@
   </ion-navbar>
 </ion-header>
 
+
 <ion-content padding>
-  <p center middle>
-    <button ion-button round large outline icon-start>
-      <ion-icon name="checkmark-circle-outline"></ion-icon>
-        Start
-    </button>
-  </p>
+  <ion-card *ngFor="let wi of waterItems">
+    <img src="{{wi.img}}" alt="{{wi.alt}}">
+    <ion-item>
+      <ion-icon name="{{wi.icon}}" item-start style="color: #55acee"></ion-icon>
+    </ion-item>
+    <p *ngFor="let i of wi.items">
+      <ion-card-content class="text">
+        {{i.description}}
+      </ion-card-content>
+      <ion-item class="value">
+        <p>{{i.value}}</p>
+      </ion-item>
+    </p>
+  </ion-card>
+  
 </ion-content>
+

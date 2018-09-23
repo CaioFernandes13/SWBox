@@ -1,25 +1,23 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'page-config',
   templateUrl: 'config.html'
 })
 export class ConfigPage {
-
-  constructor(public navCtrl: NavController, public alerCtrl: AlertController) {
-
+  boxOptions: Array<{value: string, description: string, img: string, alt: string;}>;
+  formatBox: string;
+  constructor(public navCtrl: NavController) {
+    this.boxOptions = [
+      {value: 'cilindro', description: 'Cilíndrica', img: "../../assets/imgs/icon.jpg", alt: ""},
+      {value: 'quadradro', description: 'Quadrada', img: "", alt: ""},
+      {value: 'cilindrof', description: 'Cilíndrica Fechada', img: "", alt: ""}
+    ]
   }
 
-  startMonitor(){
-    //if(){
-      const alert = this.alerCtrl.create({
-        title: 'Sem dados da caixa',
-        subTitle: "Vá na aba configurações e preencha os dados de sua caixa d'agua",
-        buttons: ['OK']
-      });
-      alert.present();
-    //}
+  setFormatValue(value){
+    this.formatBox = value;
   }
+
 }

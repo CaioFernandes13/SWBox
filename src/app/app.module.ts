@@ -2,12 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { HeaderColor } from '@ionic-native/header-color';
+import { Serial } from '@ionic-native/serial';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { InfoPage } from '../pages/info/info';
 import { AboutPage } from '../pages/about/about';
 import { ConfigPage } from '../pages/config/config';
-import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -16,9 +18,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   declarations: [
     MyApp,
     HomePage,
+    InfoPage,
     AboutPage,
-    ConfigPage,
-    ListPage
+    ConfigPage
   ],
   imports: [
     BrowserModule,
@@ -28,14 +30,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   entryComponents: [
     MyApp,
     HomePage,
+    InfoPage,
     AboutPage,
-    ConfigPage,
-    ListPage
+    ConfigPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     InAppBrowser,
+    HeaderColor,
+    Serial,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

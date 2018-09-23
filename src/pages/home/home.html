@@ -7,11 +7,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <p center middle>
-    <button ion-button round large outline icon-start (click)="startMonitor()">
+<ion-content padding class = "bg">
+  <div class = "img">
+    <img src="../../assets/imgs/water.png" alt="">
+  </div>
+  <div class="start-button">
+    <button ion-button round large block outline icon-start (click)="startMonitor()">
       <ion-icon name="checkmark-circle-outline"></ion-icon>
-        Start
+        Iniciar
     </button>
-  </p>
+  </div>
+  <footer class="footer">
+    Version 1.0
+  </footer>
 </ion-content>

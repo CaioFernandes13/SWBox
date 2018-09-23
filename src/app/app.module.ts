@@ -5,6 +5,7 @@ import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HeaderColor } from '@ionic-native/header-color';
 import { Serial } from '@ionic-native/serial';
 
+
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { InfoPage } from '../pages/info/info';
@@ -13,6 +14,13 @@ import { ConfigPage } from '../pages/config/config';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { SQLite } from '@ionic-native/sqlite';
+import { DatabaseProvider } from '../providers/database/database';
+import { WaterBoxProvider } from '../providers/water-box/water-box';
+import { HistoryProvider } from '../providers/history/history';
+import { UserProvider } from '../providers/user/user';
+
 
 @NgModule({
   declarations: [
@@ -40,7 +48,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     InAppBrowser,
     HeaderColor,
     Serial,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    SQLite,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DatabaseProvider,
+    WaterBoxProvider,
+    HistoryProvider,
+    UserProvider
   ]
 })
 export class AppModule {}

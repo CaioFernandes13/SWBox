@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavParams } from 'ionic-angular';
+import { Serial } from '@ionic-native/serial';
 
 @Component({
   selector: 'page-info',
@@ -9,8 +10,11 @@ export class InfoPage {
   waterItems: Array<{img: string, alt: string, icon: string, items: Array<{description: string, value: string}>}>;
   item: Array<{description: string, value: string}>
   quantAgua;
+  altura;
+  serial: Serial;
   constructor(params: NavParams) {
     this.quantAgua = params.data.item;
+    this.serial = params.data.serial;
     this.waterItems = [
 
       { img: '../../assets/imgs/water-remain.png', alt: "Água restante!", icon:"water", 
@@ -30,5 +34,14 @@ export class InfoPage {
       }
       
     ];
+  }
+
+  public writeSerial(data){
+    this.serial.write(data);
+  }
+
+  public readSerial(){
+    this.altura = this.serial.read();
+    console.log(this.altura);
   }
 }

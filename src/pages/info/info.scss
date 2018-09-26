@@ -20,4 +20,9 @@ page-info {
         color: #fff;
         background-color: #55acee;
     }
+
+    ion-content ion-row ion-col ion-card img{
+        max-width: 500px;
+        max-height: 200px;
+    }
 }

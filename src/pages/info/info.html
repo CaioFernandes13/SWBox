@@ -9,20 +9,24 @@
 
 
 <ion-content padding>
-  <ion-card *ngFor="let wi of waterItems">
-    <img src="{{wi.img}}" alt="{{wi.alt}}">
-    <ion-item>
-      <ion-icon name="{{wi.icon}}" item-start style="color: #55acee"></ion-icon>
-    </ion-item>
-    <p *ngFor="let i of wi.items">
-      <ion-card-content class="text">
-        {{i.description}}
-      </ion-card-content>
-      <ion-item class="value">
-        <p>{{i.value}}</p>
-      </ion-item>
-    </p>
-  </ion-card>
+  <ion-row >
+      <ion-col *ngFor="let wi of waterItems" col-md-4>
+        <ion-card (click) = "readSerial()">
+          <img src="{{wi.img}}" alt="{{wi.alt}}">
+          <ion-item>
+            <ion-icon name="{{wi.icon}}" item-start style="color: #55acee"></ion-icon>
+          </ion-item>
+          <p *ngFor="let i of wi.items">
+            <ion-card-content class="text">
+              {{i.description}}
+            </ion-card-content>
+            <ion-item class="value">
+              <p>{{i.value}}</p>
+            </ion-item>
+          </p>
+      </ion-card>
+    </ion-col>
+  </ion-row>
   
 </ion-content>
 

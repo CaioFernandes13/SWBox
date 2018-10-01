@@ -32,8 +32,8 @@ export class DatabaseProvider {
   private createTables(db: SQLiteObject){
     db.sqlBatch([
       ['CREATE TABLE IF NOT EXISTS WaterBox (id integer primary key AUTOINCREMENT NOT NULL, box_kind TEXT, height REAL, width REAL, depth REAL, capacity REAL)'],
-      ['CREATE TABLE IF NOT EXISTS History (id integer primary key AUTOINCREMENT NOT NULL, date DATE,  consumption REAL)'],
-      ['CREATE TABLE IF NOT EXISTS User (id integer primary key AUTOINCREMENT NOT NULL, mac_adress TEXT, ip_adress TEXT, id_water_box integer, id_history integer, FOREIGN KEY(id_water_box) REFERENCES WaterBox(id), FOREIGN KEY(id_history) REFERENCES History(id))']
+      ['CREATE TABLE IF NOT EXISTS History (id integer primary key AUTOINCREMENT NOT NULL, date DATE,  consumption REAL, id_user integer, FOREIGN KEY(id_user) REFERENCES User(id))'],
+      ['CREATE TABLE IF NOT EXISTS User (id integer primary key AUTOINCREMENT NOT NULL, mac_adress TEXT, ip_adress TEXT, id_water_box integer, FOREIGN KEY(id_water_box) REFERENCES WaterBox(id))']
     ])
 
     .then(() => console.log('Tabelas criadas'))

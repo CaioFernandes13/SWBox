@@ -10,15 +10,20 @@ import { Observable } from 'rxjs/Observable'
   templateUrl: 'info.html'
 })
 export class InfoPage {
-  waterItems: Array<{img: string, alt: string, icon: string, items: Array<{description: string, value: string}>}>;
+  waterItems: Array<{img: string, alt: string, icon: string, items: Array<{description: string, before: string, value: number, after: string}>}>;
   item: Array<{description: string, value: string}>
   
-  altura;
-  serial: Serial;
+  box_kind: string = "retangulo";
+  height: number = 100;
+  width: number = 100;
+  depth: number = 100;
+  radius: number = 50;
+  capacity: number;
+  water: number;
 
   measurement: Observable<any>;
   public obj: any;
-  public quantAgua: any;
+  public heightSensor: any;
 
   url:string = 'http://127.0.0.1:5000/';
 
@@ -27,52 +32,59 @@ export class InfoPage {
     this.measurement
     .subscribe(data => {
       this.obj = data
-      this.quantAgua = this.obj.distance
-      this.waterItems[0].items[0].value = (this.quantAgua + ' L')
-      console.log('my data: ', this.quantAgua);
+      this.heightSensor = this.obj.distance
+      this.water = this.calcWater(this.heightSensor);
+      console.log('Water: ', this.water);
+      this.updateData();
+      console.log('Height Sensor: ', this.heightSensor);
     })
-    
-    //this.serial = params.data.serial;
-    this.waterItems = [
-
-      { img: '../../assets/imgs/water-remain.png', alt: "Água restante!", icon:"water", 
-        items: [{description: 'Quantidade de água restante:', value: this.quantAgua + ' L'}] 
-      },
-
-      { img: '../../assets/imgs/water-usage.jpg', alt: "Uso de água!", icon:"done-all", 
-        items: [{description: 'Minutos restantes de banho:', value: (this.quantAgua/8) + ' minutos'}, 
-        {description: 'Quantidade de descargas restantes:', value: (this.quantAgua/10) + ' descargas'},
-        {description: 'É possível escovar os dentes:', value: (this.quantAgua/0.5) + ' vezes'}, 
-        {description: 'É possível usar máquina de lavar em sua capacidade máxima:', value: (this.quantAgua/16) + ' vezes'}, 
-        {description: 'É possível deixar a torneira ligada continuamente, em sua vazão máxima, por:', value: (this.quantAgua/10) + ' minutos'}]
-      },
-
-      { img: '../../assets/imgs/water-cost.jpg', alt: "Valor da água!", icon:"logo-usd", 
-        items: [{description: 'Quantidade gasta de água :', value: this.quantAgua}, {description: 'Valor a pagar:', value: this.quantAgua*0.018}] 
-      }
-      
-    ];
-    //this.teste();
   }
-  //  private teste(){
-  //   this.http.get('http://ionic.io', {})
-  //   .then(data => {
 
-  //     console.log(data.status);
-  //     console.log(data.data); // data received by server
-  //     console.log(data.headers);
-
-  //   })
-  // }
-
-  atualizar(){
+  public update(){
     this.measurement = this.httpClient.get(this.url);
     this.measurement
     .subscribe(data => {
       this.obj = data
-      this.quantAgua = this.obj.distance
-      this.waterItems[0].items[0].value = (this.quantAgua + ' L')
-      console.log('my data: ', this.quantAgua);
+      this.heightSensor = this.obj.distance
+      this.water = this.calcWater(this.heightSensor);
+      console.log('Water: ', this.water);
+      this.updateData();
+      console.log('Height Sensor: ', this.heightSensor);
     })
   }
+
+  private updateData(){
+    this.waterItems = [
+
+      { img: '../../assets/imgs/water-remain.png', alt: "Água restante!", icon:"water", 
+        items: [{description: 'Quantidade de água restante:', before:"", value: this.water, after: ' L'}] 
+      },
+
+      { img: '../../assets/imgs/water-usage.jpg', alt: "Uso de água!", icon:"done-all", 
+        items: [{description: 'Minutos restantes de banho:', before:"", value: (this.water/8), after: ' minutos'}, 
+        {description: 'Quantidade de descargas restantes:', before:"", value: (this.water/10), after: ' descargas'},
+        {description: 'É possível escovar os dentes:', before:"", value: (this.water/0.5), after: ' vezes'}, 
+        {description: 'É possível usar máquina de lavar em sua capacidade máxima:', before:"", value: (this.water/16), after: ' vezes'}, 
+        {description: 'É possível deixar a torneira ligada continuamente, em sua vazão máxima, por:', before:"", value: (this.water/10), after: ' minutos'}]
+      },
+
+      { img: '../../assets/imgs/water-cost.jpg', alt: "Valor da água!", icon:"logo-usd", 
+        items: [{description: 'Quantidade gasta de água :', before:"", value: this.water, after: " L"}, {description: 'Valor a pagar:', before:"R$", value: this.water*0.018, after:""}] 
+      }
+      
+    ];
+  }
+
+  public calcWater(heightSensor){
+    heightSensor = this.height - heightSensor;
+    console.log('Height Sensor2: ', heightSensor);
+    if (this.box_kind == 'retangulo') {
+      return (heightSensor*this.width*this.depth)/1000
+    }
+    else if(this.box_kind == 'cilindro'){
+      return (3.14*this.radius*this.radius)*heightSensor/1000
+    }
+  }
+
+
 }

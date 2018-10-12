@@ -9,7 +9,7 @@
 
 
 <ion-content padding>
-    <button ion-button round large block outline icon-start (click)="atualizar()">
+    <button ion-button round large block outline icon-start (click)="update();">
         <ion-icon name="refresh"></ion-icon>
           Atualizar
       </button>
@@ -25,7 +25,7 @@
               {{i.description}}
             </ion-card-content>
             <ion-item class="value">
-              <p>{{i.value}}</p>
+              <p>{{i.before}}{{i.value}}{{i.after}}</p>
             </ion-item>
           </p>
       </ion-card>

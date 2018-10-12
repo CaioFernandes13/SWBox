@@ -12,34 +12,42 @@
       
 <ion-content padding>
 
+  <ion-item>
+    <ion-label>Formato da caixa</ion-label>
+    <ion-select [(ngModel)]="box_kind" (ionChange) = "setKind();">
+      <ion-option *ngFor = "let bo of boxOptions" value="{{bo.value}}" >
+        {{bo.description}}
+      </ion-option>
+    </ion-select>
+  </ion-item>
 
-  
-
-    <ion-item>
-      <ion-label>Formato da caixa</ion-label>
-      <ion-select [(ngModel)]="box_kind">
-        <ion-option *ngFor = "let bo of boxOptions" value="{{bo.value}}" >
-          {{bo.description}}
-        </ion-option>
-      </ion-select>
-    </ion-item>
-
-  <ion-list>
+  <ion-list class="retangulo" *ngIf = "kindRetangulo && !kindCilindro">
     <ion-item>
       <ion-label floating>Altura da Caixa (cm)</ion-label>
-      <ion-input [(ngModel)]="height" type="text"></ion-input>
+      <ion-input [(ngModel)]="height" type="text" (ionChange) = "calcCapacity();"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Largura da Caixa (cm)</ion-label>
-      <ion-input [(ngModel)]="width" type="text"></ion-input>
+      <ion-input [(ngModel)]="width" type="text" (ionChange) = "calcCapacity();"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Profundidade da Caixa (cm)</ion-label>
-      <ion-input [(ngModel)]="depth" type="text"></ion-input>
+      <ion-input [(ngModel)]="depth" type="text" (ionChange) = "calcCapacity();"></ion-input>
     </ion-item>
+  </ion-list>
 
+  <ion-list class="cilindro" *ngIf = "kindCilindro && !kindRetangulo">
+      <ion-item>
+        <ion-label floating>Altura da Caixa (cm)</ion-label>
+        <ion-input [(ngModel)]="height" type="text" (ionChange) = "calcCapacity();"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Raio da Caixa (cm)</ion-label>
+        <ion-input [(ngModel)]="radius" type="text" (ionChange) = "calcCapacity();"></ion-input>
+      </ion-item>
   </ion-list>
   <ion-item>
       <ion-label floating>Capacidade da Caixa (L)</ion-label>

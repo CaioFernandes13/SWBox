@@ -10,22 +10,24 @@ import { WaterBoxProvider } from '../../providers/water-box/water-box';
 })
 
 export class ConfigPage {
-  boxOptions: Array<{value: string, description: string, img: string, alt: string;}>;
+  boxOptions: Array<{value: string, description: string, measures: Array<{description: string, type: string}>}>;
   formatBox: string;
   box_kind: string;
   height: number;
   width: number;
   depth: number;
+  radius: number;
   capacity: number;
-  typeQuadrado: boolean = false;
-  typeCilindro: boolean = false;
+  kindRetangulo: boolean = false;
+  kindCilindro: boolean = false;
 
   constructor(public navCtrl: NavController, private database: WaterBoxProvider, public alertCtrl: AlertController) { 
 
     this.boxOptions = [
-      {value: 'cilindro', description: 'Cilíndrica', img: "../../assets/imgs/icon.jpg", alt: ""},
-      {value: 'retangulo', description: 'Retangular', img: "", alt: ""},
-      {value: 'cilindrof', description: 'Cilíndrica Fechada', img: "", alt: ""}
+      {value: 'cilindro', description: 'Cilíndrica',
+      measures: [{description: 'Altura (cm)', type: "height"}, {description: 'Raio (cm)', type: "radius"}]},
+      {value: 'retangulo', description: 'Retangular', 
+      measures: [{description: 'Altura (cm)', type: "height"}, {description: 'Largura (cm)', type: "width"}, {description: 'Profundidade (cm)', type: "depth"}]}
     ]
 
     this.setValues();
@@ -33,8 +35,8 @@ export class ConfigPage {
   }
 
   confirmar() {
-    this.showAlert()
-    this.capacity = (this.height*this.width*this.depth)/1000
+    this.showAlert();
+    this.calcCapacity();
     this.database.insert(this.box_kind, this.height, this.width, this.depth, this.capacity);
     console.log("Formato caixa: "+this.box_kind);
     console.log("Altura: "+this.height);
@@ -61,12 +63,24 @@ export class ConfigPage {
     //this.formatBox = value;
   }
 
-  public isFormato(){
-    if (this.box_kind == 'quadrado') {
-      this.typeQuadrado = true;
+  public setKind(){
+    console.log("Formato caixa: "+this.box_kind);
+    if (this.box_kind == 'retangulo') {
+      this.kindRetangulo = true;
+      this.kindCilindro = false;
     }
     else if(this.box_kind == 'cilindro'){
-      this.typeCilindro = true;
+      this.kindCilindro = true;
+      this.kindRetangulo = false;
+    }
+  }
+
+  public calcCapacity(){
+    if (this.box_kind == 'retangulo') {
+      this.capacity =  (this.height*this.width*this.depth)/1000
+    }
+    else if(this.box_kind == 'cilindro'){
+      this.capacity = (3.14*this.radius*this.radius)*this.height/1000
     }
   }
 }

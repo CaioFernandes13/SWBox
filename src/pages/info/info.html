@@ -9,9 +9,13 @@
 
 
 <ion-content padding>
+    <button ion-button round large block outline icon-start (click)="atualizar()">
+        <ion-icon name="refresh"></ion-icon>
+          Atualizar
+      </button>
   <ion-row >
       <ion-col *ngFor="let wi of waterItems" col-md-4>
-        <ion-card (click) = "readSerial()">
+        <ion-card>
           <img src="{{wi.img}}" alt="{{wi.alt}}">
           <ion-item>
             <ion-icon name="{{wi.icon}}" item-start style="color: #55acee"></ion-icon>

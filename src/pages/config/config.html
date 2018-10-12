@@ -11,26 +11,41 @@
 </ion-header>
       
 <ion-content padding>
+
+
+  
+
+    <ion-item>
+      <ion-label>Formato da caixa</ion-label>
+      <ion-select [(ngModel)]="box_kind">
+        <ion-option *ngFor = "let bo of boxOptions" value="{{bo.value}}" >
+          {{bo.description}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
   <ion-list>
     <ion-item>
-      <ion-label>Formato da caixa</ion-label>
-      <ion-select [(ngModel)]="formato-caixa">
-        <ion-option *ngFor = "let bo of boxOptions" value="{{bo.value}}" >
-          {{bo.description}}
-          <img src="{{bo.img}}" alt="{{bo.alt}}">
-        </ion-option>
-      </ion-select>
+      <ion-label floating>Altura da Caixa (cm)</ion-label>
+      <ion-input [(ngModel)]="height" type="text"></ion-input>
     </ion-item>
+
     <ion-item>
-      <ion-label>Formato da caixa</ion-label>
-      <ion-select [(ngModel)]="formato-caixa">
-        <ion-option *ngFor = "let bo of boxOptions" value="{{bo.value}}" >
-          {{bo.description}}
-          <img src="{{bo.img}}" alt="{{bo.alt}}">
-        </ion-option>
-      </ion-select>
+      <ion-label floating>Largura da Caixa (cm)</ion-label>
+      <ion-input [(ngModel)]="width" type="text"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label floating>Profundidade da Caixa (cm)</ion-label>
+      <ion-input [(ngModel)]="depth" type="text"></ion-input>
+    </ion-item>
+
   </ion-list>
-  
+  <ion-item>
+      <ion-label floating>Capacidade da Caixa (L)</ion-label>
+      <ion-input [(ngModel)]="capacity" type="text" readonly="true"></ion-input>
+    </ion-item>
+
+    <button class="confirm" ion-button full (click)="confirmar()" >Confirmar</button>
+ 
 </ion-content>
-      

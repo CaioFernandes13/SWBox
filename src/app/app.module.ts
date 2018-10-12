@@ -4,6 +4,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { InAppBrowser } from '@ionic-native/in-app-browser';
 import { HeaderColor } from '@ionic-native/header-color';
 import { Serial } from '@ionic-native/serial';
+import { Http } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { MyApp } from './app.component';
@@ -32,6 +34,7 @@ import { UserProvider } from '../providers/user/user';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -48,6 +51,7 @@ import { UserProvider } from '../providers/user/user';
     InAppBrowser,
     HeaderColor,
     Serial,
+    Http,
     SQLite,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DatabaseProvider,

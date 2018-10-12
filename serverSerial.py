@@ -1,6 +1,10 @@
 import socket
 import serial
 import time
+import json
+from decimal import Decimal
+#json_data = '{"distance": "0"}'
+d = {}
 
 ip = '0.0.0.0' #IP
 port = 9000 #Porta
@@ -17,11 +21,18 @@ try:
         print (msg[:-1])
         if(msg):
             print (msg)
-            ser = serial.Serial('COM6', 9600, timeout=0)
+            ser = serial.Serial('COM8', 9600, timeout=0)
             while 1:
                 try:
-                    #print (ser.readline())
-                    obj.send(b''+ser.readline())
+                    data = str(ser.readline())
+                    data = data.replace('b', '')
+                    data = data.replace('\'', '')
+                    data = data.replace('\\n', '')
+                    data = data.replace('\\r', '')
+                    #print (json_data)
+                    d["distance"] = data
+                    print (json.dumps(d, ensure_ascii=False))
+                    obj.sendall(json.dumps(d).encode('utf-8'))
                     time.sleep(1)
                 except Exception as erro:
                     print(erro)

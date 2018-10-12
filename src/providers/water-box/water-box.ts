@@ -14,11 +14,11 @@ export class WaterBoxProvider {
     console.log('Hello WaterBoxProvider Provider');
   }
 
-  public insert(waterBox: WaterBox) {
+  public insert(box_kind: string, height: number, width: number, depth: number, capacity: number) {
     return this.dbProvider.getDB()
       .then((db: SQLiteObject) => {
         let sql = 'insert into WaterBox (box_kind, height, width, depth, capacity) values (?, ?, ?, ?, ?)';
-        let data = [waterBox.box_kind, waterBox.height, waterBox.width, waterBox.depth, waterBox.capacity];
+        let data = [box_kind, height, width, depth, capacity];
  
         return db.executeSql(sql, data)
           .catch((e) => console.error(e));

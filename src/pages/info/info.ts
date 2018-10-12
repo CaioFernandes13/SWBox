@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
-import { NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { NavParams, NavController, Platform } from 'ionic-angular';
 import { Serial } from '@ionic-native/serial';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable'
+
 
 @Component({
   selector: 'page-info',
@@ -9,12 +12,27 @@ import { Serial } from '@ionic-native/serial';
 export class InfoPage {
   waterItems: Array<{img: string, alt: string, icon: string, items: Array<{description: string, value: string}>}>;
   item: Array<{description: string, value: string}>
-  quantAgua;
+  
   altura;
   serial: Serial;
-  constructor(params: NavParams) {
-    this.quantAgua = params.data.item;
-    this.serial = params.data.serial;
+
+  measurement: Observable<any>;
+  public obj: any;
+  public quantAgua: any;
+
+  url:string = 'http://127.0.0.1:5000/';
+
+  constructor(public navCtrl: NavController, public httpClient: HttpClient) { 
+    this.measurement = this.httpClient.get(this.url);
+    this.measurement
+    .subscribe(data => {
+      this.obj = data
+      this.quantAgua = this.obj.distance
+      this.waterItems[0].items[0].value = (this.quantAgua + ' L')
+      console.log('my data: ', this.quantAgua);
+    })
+    
+    //this.serial = params.data.serial;
     this.waterItems = [
 
       { img: '../../assets/imgs/water-remain.png', alt: "Água restante!", icon:"water", 
@@ -34,14 +52,27 @@ export class InfoPage {
       }
       
     ];
+    //this.teste();
   }
+  //  private teste(){
+  //   this.http.get('http://ionic.io', {})
+  //   .then(data => {
 
-  public writeSerial(data){
-    this.serial.write(data);
-  }
+  //     console.log(data.status);
+  //     console.log(data.data); // data received by server
+  //     console.log(data.headers);
 
-  public readSerial(){
-    this.altura = this.serial.read();
-    console.log(this.altura);
+  //   })
+  // }
+
+  atualizar(){
+    this.measurement = this.httpClient.get(this.url);
+    this.measurement
+    .subscribe(data => {
+      this.obj = data
+      this.quantAgua = this.obj.distance
+      this.waterItems[0].items[0].value = (this.quantAgua + ' L')
+      console.log('my data: ', this.quantAgua);
+    })
   }
 }

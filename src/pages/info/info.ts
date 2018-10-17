@@ -4,7 +4,6 @@ import { Serial } from '@ionic-native/serial';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable'
 
-
 @Component({
   selector: 'page-info',
   templateUrl: 'info.html'
@@ -14,9 +13,9 @@ export class InfoPage {
   item: Array<{description: string, value: string}>
   
   box_kind: string = "retangulo";
-  height: number = 100;
-  width: number = 100;
-  depth: number = 100;
+  height: number = 14;
+  width: number = 10;
+  depth: number = 14.5;
   radius: number = 50;
   capacity: number;
   water: number;
@@ -28,16 +27,7 @@ export class InfoPage {
   url:string = 'http://127.0.0.1:5000/';
 
   constructor(public navCtrl: NavController, public httpClient: HttpClient) { 
-    this.measurement = this.httpClient.get(this.url);
-    this.measurement
-    .subscribe(data => {
-      this.obj = data
-      this.heightSensor = this.obj.distance
-      this.water = this.calcWater(this.heightSensor);
-      console.log('Water: ', this.water);
-      this.updateData();
-      console.log('Height Sensor: ', this.heightSensor);
-    })
+    this.update();
   }
 
   public update(){
@@ -46,10 +36,14 @@ export class InfoPage {
     .subscribe(data => {
       this.obj = data
       this.heightSensor = this.obj.distance
-      this.water = this.calcWater(this.heightSensor);
-      console.log('Water: ', this.water);
-      this.updateData();
       console.log('Height Sensor: ', this.heightSensor);
+      if(this.heightSensor != '' && this.heightSensor <= this.height){
+        this.water = this.calcWater(this.heightSensor);
+        console.log('Water: ', this.water);
+        this.updateData();
+      }
+      
+      
     })
   }
 
@@ -85,6 +79,4 @@ export class InfoPage {
       return (3.14*this.radius*this.radius)*heightSensor/1000
     }
   }
-
-
 }

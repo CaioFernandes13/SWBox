@@ -19,5 +19,5 @@ def serialJSON():
     return json.dumps(d, ensure_ascii=False)
  
 if __name__ == "__main__":
-    ser = serial.Serial('COM8', 9600, timeout=0)
+    ser = serial.Serial('COM6', 9600, timeout=0)
     app.run()

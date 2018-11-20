@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavParams, NavController, Platform } from 'ionic-angular';
-import { Serial } from '@ionic-native/serial';
+import { NavController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable'
+import { Observable } from 'rxjs/Observable';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial';
 
 @Component({
   selector: 'page-info',
@@ -23,28 +23,32 @@ export class InfoPage {
   measurement: Observable<any>;
   public obj: any;
   public heightSensor: any;
-
+  success = (data) => console.log(data);
+  fail = (error) => console.log("ERROR");
   url:string = 'http://127.0.0.1:5000/';
 
-  constructor(public navCtrl: NavController, public httpClient: HttpClient) { 
+  constructor(public navCtrl: NavController, public httpClient: HttpClient, private bluetoothSerial: BluetoothSerial) { 
+    this.bluetoothSerial.connect("SWB Device").subscribe(this.success, this.fail);
     this.update();
   }
 
   public update(){
-    this.measurement = this.httpClient.get(this.url);
-    this.measurement
-    .subscribe(data => {
-      this.obj = data
-      this.heightSensor = this.obj.distance
-      console.log('Height Sensor: ', this.heightSensor);
-      if(this.heightSensor != '' && this.heightSensor <= this.height){
-        this.water = this.calcWater(this.heightSensor);
-        console.log('Water: ', this.water);
-        this.updateData();
-      }
-      
-      
-    })
+    this.bluetoothSerial.write('1').then(this.success, this.fail);
+    this.bluetoothSerial.readUntil("\n").then((data) => { console.log(data);
+        var geral = data.split(",");
+        var heightSensor = [0, 0, 0, 0];
+        heightSensor[0] = parseInt(geral[0]);
+        heightSensor[1] = parseInt(geral[1]);
+        heightSensor[2] = parseInt(geral[2]);
+        heightSensor[3] = parseInt(geral[3]);
+        console.log('Height Sensor: ', this.heightSensor);
+        if(this.heightSensor != '' && this.heightSensor <= this.height){
+          this.water = this.calcWater(this.heightSensor);
+          console.log('Water: ', this.water);
+          this.updateData();
+        }
+      }   
+    );
   }
 
   private updateData(){

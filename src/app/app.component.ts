@@ -3,7 +3,6 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HeaderColor } from '@ionic-native/header-color';
-import { Serial } from '@ionic-native/serial';
 import { SQLite } from '@ionic-native/sqlite'
 import { DatabaseProvider } from '../providers/database/database';
 
@@ -25,7 +24,7 @@ export class MyApp {
 
   pages: Array<{title: string, icon: string, component: any}>;
 
-  constructor(private headerColor: HeaderColor, private serial: Serial, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public dbProvider: DatabaseProvider) {
+  constructor(private headerColor: HeaderColor, public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public dbProvider: DatabaseProvider) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
